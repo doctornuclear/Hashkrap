@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/my-style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="{{ url_for('static',filename='js/svg-img.js') }}"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-166024456-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-166024456-1');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+    <title>Hashtag Research Tool</title>
+</head>
+
+<body>
+<div class="d-flex min-vh-100 flex-column">
+
+    <nav class="navbar navbar-expand-lg navbar-dark nav-bg">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <!--<img class="img-fluid logo-svg body-image nav-logo svg"
+                                                  src="{{ url_for('static',filename='img/HK-Final-LOGO.svg') }}"
+                                                    alt="LOGO">-->
+                <img src="{{ url_for('static',filename='img/HK-Final-LOGO.svg') }}"
+                     class="svg img-fluid logo-svg body-image nav-logo">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact-us">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="content-cont d-flex align-items-center flex-grow-1">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-lg-10">
+                    <h7 class="hm-pg-text">Don't just find top hashtags but find hashtags optimized for your account to
+                        rank on 'Top Posts' of hashtags and increase your engagements with consistent use.
+                    </h7>
+                    <div class="black-bg rounded">
+                        <div class="row align-items-center">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="d-block d-sm-none pb-3">
+                                    <img src="{{ url_for('static',filename='img/HK-Final-LOGO.svg') }}"
+                                         class="svg img-fluid logo-svg">
+                                </div>
+                                <div class="hm-pg-form">
+                                    <form class="" action="/response" method="post">
+                                        <div class="form-group">
+                                            <div class="input-group mb-2 mr-sm-2">
+                                            <span class="label-sym">
+                                                <i class="fas fa-hashtag"></i>
+                                            </span>
+                                                <input type="text"
+                                                       class="form-control form-control-lg textfield-border"
+                                                       name="keyword"
+                                                       placeholder="Hashtag Keyword eg: party"
+                                                       {% if keyword %}
+                                                       value="{{ keyword }}"
+                                                       {% endif %}>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group mb-2 mr-sm-2">
+                                            <span class="label-sym">
+                                                <i class="fas fa-at"></i>
+                                            </span>
+                                                <input type="text"
+                                                       class="form-control
+                                                       {% if not username_flag %}
+                                                       form-control-red
+                                                       {% endif %}
+                                                       form-control-lg textfield-border"
+                                                       name="username"
+                                                       {% if not username_flag %}
+                                                       placeholder="Username not found"
+                                                       {% else %}
+                                                       placeholder="Username"
+                                                       {% endif %}
+                                                       {% if username %}
+                                                       value="{{ username }}"
+                                                       {% endif %}
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-check-inline">
+                                            <div class="form-group form-check-inline radio-btn">
+                                                <input type="radio" name="options" id="option1" value="me"
+                                                       {% if order_by== "me" %}
+                                                checked="checked"
+                                                {% endif %}
+                                                > Optimized for me&nbsp <br>
+                                                <input type="radio" name="options" id="option2" value="top"
+                                                       {% if order_by and order_by !="me" %}
+                                                       checked="checked"
+                                                       {% endif %}
+                                                > Top
+                                                <hashtags></hashtags>
+                                            </div>
+                                        </div>
+                                        <button type="submit"
+                                                class="btn-lg submit-btn btn-block">
+                                            Submit
+                                        </button>
+
+                                    </form>
+                                    {%if rows%}
+                                    <br>
+                                    <span class="hm-pg-text">Scroll down to see the Krap</span>
+                                    {%endif%}
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12 col-sm-6 d-none d-sm-block">
+                                <div class="">
+                                    <img src="{{ url_for('static',filename='img/HK-Final-LOGO.svg') }}"
+                                         class="svg img-fluid logo-svg">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="data-wrapper">
+        {% if rows %}
+        {{ pagination.links }}
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <!--<form class="" action="/suggestions" method="POST">
+                        <button type="submit" id="formbtn" class="submit-btn"> Submit</button>-->
+                        <table class="table table-dark table-bordered table-hover mt-3 table-responsive">
+                            <thead>
+                            <tr>
+                                <th>
+                                    Hashtag
+                                </th>
+                                <th>
+                                    Post Count
+                                </th>
+                                <th class="tbcol-width130" data-toggle="tooltip" data-placement="top"
+                                    title="Signifies the probability that your post might reach the top 9 posts of given hashtag">
+                                    <i class="fas fa-info-circle"></i>
+                                    Ranking Probability&nbsp;
+                                </th>
+                                <th class="tbcol-width110" data-toggle="tooltip" data-placement="top"
+                                    title="Use 60% hashtags that are Ranking(on top 9 of a hashtag) and other 40% Exposure(for reaching new people)">
+                                    <i class="fas fa-info-circle"></i>
+                                    Purpose
+                                </th>
+                                <th>
+                                    Max Likes
+                                </th>
+                                <th>
+                                    Min Likes
+                                </th>
+                                <th>
+                                    Avg Likes
+                                </th>
+                                <th>
+                                    Max Comments
+                                </th>
+                                <th>
+                                    Min Comments
+                                </th>
+                                <th>
+                                    Avg Comments
+                                </th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for hashtuple in rows %}
+                            <tr>
+                                {% for value in hashtuple %}
+                                <td {%if loop.index==1 %}
+                                    style="word-break:break-all;"
+                                    {% endif %}
+                                >
+                                    {%if loop.index==1 %}
+                                    <!--<input type="checkbox", value="{{ value }}" name="selected_hashtag"></input>-->
+                                    {% endif %}
+                                    {{ value }}
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {{ pagination.links }}
+        {% endif %}
+    </section>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col py-4">
+                    hi
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+<script src="{{ url_for('static',filename='js/script.js') }}"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/7e15bb19db.js" crossorigin="anonymous"></script>
+
+
+<link href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" rel="stylesheet">
+<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+<script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+<script type="text/javascript">
+    $('th').click(function(){
+    var table = $(this).parents('table').eq(0)
+    var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()))
+    this.asc = !this.asc
+    if (!this.asc){rows = rows.reverse()}
+    for (var i = 0; i < rows.length; i++){table.append(rows[i])}
+})
+function comparer(index) {
+    return function(a, b) {
+        var valA = getCellValue(a, index), valB = getCellValue(b, index)
+        return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.toString().localeCompare(valB)
+    }
+}
+function getCellValue(row, index){ return $(row).children('td').eq(index).text() }
+</script>
+<!--DATA TABLES JS-->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready( function () {
+    $('table').DataTable();
+} );
+</script>
+</body>
+</html>

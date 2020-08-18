@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+
+<body>
+    <table border=1>
+        <thead>
+            <tr>
+                <th>Hashtag</th>
+                <th>Post Count</th>
+                <th>Avg Likes
+                <th>Max Likes</th>
+                <th>Min Likes</th>
+                <th>Avg Comments</th>
+                <th>Max Comments</th>
+                <th>Min Comments</th>
+                <th>Ranking Probability</th>
+                <th>Purpose</th>
+                <th>Probability</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for row in rows %}
+            <tr>
+                {% for key in row %}
+                <td> {{ row[key] }} </td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+
+</html>
+
+<!--{'Hashtag': 'love', 'Post Count': '1,774,692,029', 'Avg Likes': 2397, 'Max Likes': 9821, 'Min Likes': 226, 'Avg Comments': 108, 'Max Comments': 454, 'Min Comments': 2, 'Ranking Probability': 'Very Low', 'Purpose': 'Exposure', 'Probability': '0.019'}-->
